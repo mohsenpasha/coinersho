@@ -10,6 +10,12 @@ export default function AuthPage(){
     const [inputValue,setInputValue] = useState('')
     const [submitedAlready,setSubmitedAlready] = useState(false)
     useEffect(()=>{
+        const userInfo = localStorage.getItem('userInfo')
+        if(!!userInfo){
+            router.push('/dashboard')
+        }
+    },[])
+    useEffect(()=>{
         // this is for preventing more than 11 digit number
         if(inputValue.length > 11){
             setInputValue(inputValue.slice(0,11))
