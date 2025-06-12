@@ -1,4 +1,6 @@
 'use client'
+
+import styles from './page.module.scss'
 import { useEffect, useState } from "react";
 import PhoneInput from "../components/PhoneInput";
 import SubmiteButton from "../components/SubmitButton";
@@ -64,9 +66,9 @@ export default function AuthPage(){
         }
     }
     return(
-        <div>
+        <div className={styles.form}>
             <PhoneInput value={inputValue} changeHandler={setInputValue}/>
-            <span>
+            <span className={styles.error}>
                 {inputError && inputError}
             </span>
             <SubmiteButton submitHandler={submitHandler}/>
