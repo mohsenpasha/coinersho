@@ -2,12 +2,13 @@
 import { useEffect, useState } from "react";
 import PhoneInput from "../components/PhoneInput";
 import SubmiteButton from "../components/SubmitButton";
+import { useRouter } from "next/navigation";
 
 export default function AuthPage(){
+    const router = useRouter()
     const [inputError,setInputError] = useState<null | string>(null)
     const [inputValue,setInputValue] = useState('')
     const [submitedAlready,setSubmitedAlready] = useState(false)
-    
     useEffect(()=>{
         // this is for preventing more than 11 digit number
         if(inputValue.length > 11){
@@ -39,13 +40,22 @@ export default function AuthPage(){
             return true
         }
     }
-    function submitHandler(){
+    async function submitHandler(){
         if(!submitedAlready){
             setSubmitedAlready(true)
         }
         const isValid = isInputValid()
-        console.log(isValid)
         if(!isValid) return
+        try{
+            const response = await fetch('https://randomuser.me/api/?results=1&nat=us')
+            const jsonRes = await response.json()
+            const name = jsonRes.results[0].name
+            localStorage.setItem('userInfo',`${name.title} ${name.first} ${name.last}`)
+            router.push('/dashboard')
+        }
+        catch(err){
+            console.log(err)
+        }
     }
     return(
         <div>
