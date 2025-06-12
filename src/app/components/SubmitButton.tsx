@@ -1,8 +1,14 @@
-export default function SubmiteButton({submitHandler}:{submitHandler:()=>void}){
+import styles from './SubmitButton.module.scss'
+export default function SubmiteButton({submitHandler,isLoading}:{submitHandler:()=>void,isLoading:boolean}){
     return(
         <div>
-            <button onClick={submitHandler}>
-                ورود
+            <button className={styles.btn} onClick={submitHandler}>
+                {isLoading
+                ?
+                    <div className={styles.loading}></div>
+                :
+                    <>ورود</>
+                }
             </button>
         </div>
     )
