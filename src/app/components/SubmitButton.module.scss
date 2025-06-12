@@ -11,6 +11,9 @@
     &:hover{
         background-color: #0000FF;
     }
+    &:disabled{
+        background-color: #cccccc;
+    }
     .loading{
         width: 12px;
         height: 12px;
