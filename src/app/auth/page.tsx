@@ -11,6 +11,7 @@ export default function AuthPage(){
     const [inputError,setInputError] = useState<null | string>(null)
     const [inputValue,setInputValue] = useState('')
     const [submitedAlready,setSubmitedAlready] = useState(false)
+    const [isLoading,setIsLoading] = useState(false)
     useEffect(()=>{
         const userInfo = localStorage.getItem('userInfo')
         if(!!userInfo){
@@ -55,6 +56,7 @@ export default function AuthPage(){
         const isValid = isInputValid()
         if(!isValid) return
         try{
+            setIsLoading(true)
             const response = await fetch('https://randomuser.me/api/?results=1&nat=us')
             const jsonRes = await response.json()
             const name = jsonRes.results[0].name
@@ -62,6 +64,7 @@ export default function AuthPage(){
             router.push('/dashboard')
         }
         catch(err){
+            setIsLoading(false)
             console.log(err)
         }
     }
@@ -71,7 +74,7 @@ export default function AuthPage(){
             <span className={styles.error}>
                 {inputError && inputError}
             </span>
-            <SubmiteButton submitHandler={submitHandler}/>
+            <SubmiteButton submitHandler={submitHandler} isLoading={isLoading} />
         </div>
     )
 }
