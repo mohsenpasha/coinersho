@@ -1,4 +1,4 @@
-export default function SubmiteButton({submitHandler}){
+export default function SubmiteButton({submitHandler}:{submitHandler:()=>void}){
     return(
         <div>
             <button onClick={submitHandler}>
